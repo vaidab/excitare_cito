@@ -14,8 +14,8 @@ def get_arguments(args):
     token_address = ""
     wallet_address = ""
     network = ""
-    sleep_time_seconds = config.announcer_config.SLEEP_TIME_SECONDS
-    max_decimals = config.announcer_config.MAX_DECIMALS
+    sleep_time_seconds = config.SLEEP_TIME_SECONDS
+    max_decimals = config.MAX_DECIMALS
 
     try:
         arguments, values = getopt.getopt(argument_list, options, long_options)
