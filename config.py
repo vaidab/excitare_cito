@@ -2,7 +2,9 @@ import package.abis as abi
 import package.network_chains as chains
 
 token_abi = abi.token_abi
-use_pushsafer = True
+
+use_mac_voice = False
+use_pushsafer = False
 pushsafer_key = ""
 
 SLEEP_TIME_SECONDS = 1  # check only once per 120 seconds until we're closer to IDO

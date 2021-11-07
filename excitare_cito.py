@@ -22,9 +22,10 @@ def main(args):
         sleep_time_seconds = config.SLEEP_TIME_SECONDS
         max_decimals = config.MAX_DECIMALS
         use_pushsafer = config.use_pushsafer
+        use_mac_voice = config.use_mac_voice
     else:
         network, wallet_address, token_address, sleep_time_seconds, \
-            max_decimals, use_pushsafer = cmd_args.get_arguments(args)
+            max_decimals, use_pushsafer, use_mac_voice = cmd_args.get_arguments(args)
     token_abi = config.token_abi
 
     pushsafer_key = None
@@ -37,9 +38,10 @@ def main(args):
     web3 = connect(network)
     wait_for_token(web3, wallet_address, token_address, token_abi, sleep_time_seconds, max_decimals)
 
-    os.system('say "Token received"')
     if use_pushsafer:
         alert(f"Token {token_address} received", pushsafer_key)
+    if use_mac_voice:
+        os.system('say "Token received"')
 
 
 if __name__ == "__main__":
