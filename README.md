@@ -4,7 +4,9 @@
 Announces when a web3 wallet receives a token.
 
 # Usage
-You can use it by modifying config.py (without arguments) or using commandline arguments.
+You can use it by modifying config.py (without arguments) or using commandline arguments. 
+Optionally, you can create an account on Pushsafer.com and use the API key to get notified on various devices.
+Or just use "sudo apt-get install gnustep-gui-runtime" (or the native mac 'say') to get a verbal cue.
 ```
 excitare_cito.py -n 1-4 -w wallet -t token [-s seconds] [-d decimals] [-vk]
 
