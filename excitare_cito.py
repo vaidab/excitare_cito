@@ -8,7 +8,7 @@ import os
 import sys
 from getpass import getpass
 
-import config
+import config as config
 from package import cmd_args as cmd_args
 from package.web3_functions import connect, wait_for_token
 from package.pushsafer import alert
