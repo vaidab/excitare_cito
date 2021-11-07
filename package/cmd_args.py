@@ -4,18 +4,19 @@ import sys
 from package import network_chains
 import config
 
-options = "n:t:w:s:d:h"
-long_options = ["network =", "wallet =", "token =", "seconds =", "decimals =", "help"]
+options = "n:t:w:s:d:kh"
+long_options = ["network =", "wallet =", "token =", "seconds =", "decimals =", "key", "help"]
 
 
 def get_arguments(args):
     argument_list = args[1:]
 
-    token_address = ""
-    wallet_address = ""
-    network = ""
+    token_address = None
+    wallet_address = None
+    network = None
     sleep_time_seconds = config.SLEEP_TIME_SECONDS
     max_decimals = config.MAX_DECIMALS
+    use_pushsafer = False
 
     try:
         arguments, values = getopt.getopt(argument_list, options, long_options)
@@ -35,6 +36,9 @@ def get_arguments(args):
                 sleep_time_seconds = int(current_value)
             elif current_argument in ("-d", "--decimals"):
                 max_decimals = int(current_value)
+            elif current_argument in ("-k", "--key"):
+                use_pushsafer = True
+
     except getopt.error as err:
         print(str(err) + "\n")
         show_usage()
@@ -44,31 +48,33 @@ def get_arguments(args):
         show_usage()
         exit(1)
 
-    return network, wallet_address, token_address, sleep_time_seconds, max_decimals
+    return network, wallet_address, token_address, sleep_time_seconds, max_decimals, use_pushsafer
 
 
 def show_usage():
-    print("tokenAnnouncer.py -n 1-4 -w wallet -t token [-s seconds] [-d decimals]\n")
+    print("tokenAnnouncer.py -n 1-4 -w wallet -t token [-s seconds] [-d decimals] [-k]\n")
     print("If there are no arguments it will take the values from announcer_config.py\n")
     print("Usage:")
     print("\t-n network is one of these numbers: 1. ETH, 2. ROPSTEN, 3. BSC, 4. POLYGON")
     print("\t-s sleep time between queries, in seconds (default 1)")
     print("\t-d is the decimals number to display when showing values (default 2, max 16)")
+    print("\t-k activates Pushsafer for remote alerts")
     return
 
 
-def show_arguments(network, wallet_address, token_address, sleep_time_seconds, max_decimals):
+def show_arguments(network, wallet_address, token_address, sleep_time_seconds, max_decimals, use_pushsafer):
     print("[+] Network: " + network)
     print("[+] Wallet: " + wallet_address)
     print("[+] Token: " + token_address)
     print("[+] Sleep: " + str(sleep_time_seconds))
     print("[+] Decimals: " + str(max_decimals))
+    print("[+] Use Pushsafer: " + use_pushsafer)
     return
 
 
 def main(args):
-    network, wallet_address, token_address, sleep_time_seconds, max_decimals = get_arguments(args)
-    show_arguments(network, wallet_address, token_address, sleep_time_seconds, max_decimals)
+    network, wallet_address, token_address, sleep_time_seconds, max_decimals, use_pushsafer = get_arguments(args)
+    show_arguments(network, wallet_address, token_address, sleep_time_seconds, max_decimals, use_pushsafer)
 
 
 if __name__ == "__main__":

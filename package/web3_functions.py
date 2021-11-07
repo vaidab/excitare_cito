@@ -1,7 +1,5 @@
-import os
-import time
-
 from web3 import Web3
+
 import package.network_chains as chains
 from package.utils import timeit
 
@@ -18,6 +16,7 @@ def connect(network):
 
     return web3
 
+
 @timeit
 def wait_for_token(web3, wallet_address, token_address, token_abi, sleep_time_seconds, max_decimals):
     token_address = web3.toChecksumAddress(token_address)
@@ -32,11 +31,9 @@ def wait_for_token(web3, wallet_address, token_address, token_abi, sleep_time_se
     print(f"[+] Watching {wallet_address} for token {token_address} ({token_symbol}) every {sleep_time_seconds}s\n")
 
     new_balance_full = token_initial_balance_full
-    while new_balance_full <= token_initial_balance_full:
-        time.sleep(sleep_time_seconds)
-        new_balance_full = token_contract.functions.balanceOf(wallet_address).call()
-
-    os.system('say "Token received"')
+    # while new_balance_full <= token_initial_balance_full:
+    #     time.sleep(sleep_time_seconds)
+    #     new_balance_full = token_contract.functions.balanceOf(wallet_address).call()
 
     final_balance_full = new_balance_full - token_initial_balance_full
     final_balance = web3.fromWei(final_balance_full, 'ether')
