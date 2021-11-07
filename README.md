@@ -3,7 +3,7 @@
 
 Announces when a web3 wallet receives a token.
 
-Optionally, you can create an account on [Pushsafer.com]() and use the API key to get notified on various devices.
+You can create an account on [Pushsafer.com]() and use the API key to get notified on various devices.
 
 Or just use "sudo apt-get install gnustep-gui-runtime" (or the native mac 'say') to get a verbal cue.
 
