@@ -55,7 +55,7 @@ def get_arguments(args):
 
 
 def show_usage():
-    print("tokenAnnouncer.py -n 1-4 -w wallet -t token [-s seconds] [-d decimals] [-vk]\n")
+    print("excitare_cito.py -n 1-4 -w wallet -t token [-s seconds] [-d decimals] [-vk]\n")
     print("If there are no arguments it will take the values from announcer_config.py\n")
     print("Usage:")
     print("\t-n network is one of these numbers: 1. ETH, 2. ROPSTEN, 3. BSC, 4. POLYGON")
