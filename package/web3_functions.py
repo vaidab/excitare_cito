@@ -3,6 +3,8 @@ import time
 
 from web3 import Web3
 import package.network_chains as chains
+from package.utils import timeit
+
 
 def connect(network):
     network_data = chains.get_network_data(network)
@@ -16,7 +18,7 @@ def connect(network):
 
     return web3
 
-
+@timeit
 def wait_for_token(web3, wallet_address, token_address, token_abi, sleep_time_seconds, max_decimals):
     token_address = web3.toChecksumAddress(token_address)
     token_contract = web3.eth.contract(token_address, abi=token_abi)
@@ -30,12 +32,10 @@ def wait_for_token(web3, wallet_address, token_address, token_abi, sleep_time_se
     print(f"[+] Watching {wallet_address} for token {token_address} ({token_symbol}) every {sleep_time_seconds}s\n")
 
     new_balance_full = token_initial_balance_full
-    start_time = time.time()
     while new_balance_full <= token_initial_balance_full:
         time.sleep(sleep_time_seconds)
         new_balance_full = token_contract.functions.balanceOf(wallet_address).call()
 
-    end_time = int(time.time() - start_time)
     os.system('say "Token received"')
 
     final_balance_full = new_balance_full - token_initial_balance_full
@@ -43,6 +43,4 @@ def wait_for_token(web3, wallet_address, token_address, token_abi, sleep_time_se
 
     print(f"[+] {round(final_balance, max_decimals)} {token_symbol} arrived in the account.")
     print(f"[!] New {token_symbol} balance: {round(web3.fromWei(new_balance_full, 'ether'), max_decimals)} ")
-    print('[+] Elapsed time: {:02d}:{:02d}:{:02d}'.
-          format(end_time // 3600, (end_time % 3600 // 60), end_time % 60))
     return
