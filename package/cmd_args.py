@@ -5,7 +5,7 @@ from package import network_chains
 import config
 
 options = "n:t:w:s:d:kvh"
-long_options = ["network =", "wallet =", "token =", "seconds =", "decimals =", "key", "voice", "help"]
+long_options = ["NETWORK =", "wallet =", "token =", "seconds =", "decimals =", "key", "voice", "help"]
 
 
 def get_arguments(args):
@@ -26,7 +26,7 @@ def get_arguments(args):
             show_usage()
             exit(1)
         for current_argument, current_value in arguments:
-            if current_argument in ("-n", "--network"):
+            if current_argument in ("-n", "--NETWORK"):
                 network_number = int(current_value) - 1
                 network = network_chains.chain_list[network_number]
             elif current_argument in ("-w", "--wallet"):
@@ -58,7 +58,7 @@ def show_usage():
     print("excitare_cito.py -n 1-4 -w wallet -t token [-s seconds] [-d decimals] [-vk]\n")
     print("If there are no arguments it will take the values from announcer_config.py\n")
     print("Usage:")
-    print("\t-n network is one of these numbers: 1. ETH, 2. ROPSTEN, 3. BSC, 4. POLYGON")
+    print("\t-n NETWORK is one of these numbers: 1. ETH, 2. ROPSTEN, 3. BSC, 4. POLYGON")
     print("\t-s sleep time between queries, in seconds (default 1)")
     print("\t-d is the decimals number to display when showing values (default 2, max 16)")
     print("\t-v uses Mac's voice system for alert")

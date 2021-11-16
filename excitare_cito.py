@@ -16,25 +16,25 @@ from package.pushsafer import alert
 
 def main(args):
     if len(args) == 1:
-        if len(config.wallet_address) != 42 and len(config.token_address) != 42:
+        if len(config.WALLET_ADDRESS) != 42 and len(config.TOKEN_ADDRESS) != 42:
             print("Add a wallet address and a token address to the config file or use the command line arguments.")
             exit(1)
-        network = config.network
-        wallet_address = config.wallet_address
-        token_address = config.token_address
+        network = config.NETWORK
+        wallet_address = config.WALLET_ADDRESS
+        token_address = config.TOKEN_ADDRESS
         sleep_time_seconds = config.SLEEP_TIME_SECONDS
         max_decimals = config.MAX_DECIMALS
-        use_pushsafer = config.use_pushsafer
-        use_mac_voice = config.use_mac_voice
+        use_pushsafer = config.USE_PUSHSAFER
+        use_mac_voice = config.USE_MAC_VOICE
     else:
         network, wallet_address, token_address, sleep_time_seconds, \
             max_decimals, use_pushsafer, use_mac_voice = cmd_args.get_arguments(args)
-    token_abi = config.token_abi
+    token_abi = config.TOKEN_ABI
 
     pushsafer_key = None
     if use_pushsafer:
-        if config.pushsafer_key:
-            pushsafer_key = config.pushsafer_key
+        if config.PUSHSAFER_KEY:
+            pushsafer_key = config.PUSHSAFER_KEY
         else:
             pushsafer_key = getpass(prompt="[+] Input Pushsafer key: ")
 
