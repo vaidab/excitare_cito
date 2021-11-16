@@ -16,6 +16,9 @@ from package.pushsafer import alert
 
 def main(args):
     if len(args) == 1:
+        if len(config.wallet_address) != 42 and len(config.token_address) != 42:
+            print("Add a wallet address and a token address to the config file or use the command line arguments.")
+            exit(1)
         network = config.network
         wallet_address = config.wallet_address
         token_address = config.token_address
