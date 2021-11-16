@@ -1,4 +1,6 @@
 import json
+
+import config
 from package.definitions import ROOT_DIR
 import os
 
@@ -19,15 +21,17 @@ def get_network_data(chain_file):
 
 
 def show_network_info(network_data):
-    print(f"[+] Connected to: {network_data['name']}")
-    print(f"[+] Symbol: {network_data['nativeCurrency']['symbol']}")
+    print(f"[+] Connected to: {get_name(network_data)}")
+    print(f"[+] Symbol: {get_network_token_symbol(network_data)}")
     print(f"[+] ChainId: {network_data['chainId']}")
-    print(f"[+] RPC: {network_data['rpc'][0]}")
+    print(f"[+] RPC: {get_rpc(network_data)}")
     return
 
 
 def get_rpc(network_data):
     rpc = network_data['rpc'][0]
+    if rpc.find("${INFURA_API_KEY}"):
+        rpc = rpc.replace("${INFURA_API_KEY}", config.INFURA_API_KEY)
     return rpc
 
 
