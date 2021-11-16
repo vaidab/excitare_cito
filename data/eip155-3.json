@@ -3,8 +3,8 @@
   "chain": "ETH",
   "network": "ropsten",
   "rpc": [
-    "https://ropsten.infura.io/v3/3159fab70c0c410ba31e0a79e1e1cb2b",
-    "wss://ropsten.infura.io/ws/v3/3159fab70c0c410ba31e0a79e1e1cb2b"
+    "https://ropsten.infura.io/v3/${INFURA_API_KEY}",
+    "wss://ropsten.infura.io/ws/v3/${INFURA_API_KEY}"
   ],
   "faucets": [
     "https://faucet.ropsten.be?${ADDRESS}"
