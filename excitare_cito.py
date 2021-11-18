@@ -16,9 +16,7 @@ from package.pushsafer import alert
 
 def main(args):
     if len(args) == 1:
-        if len(config.WALLET_ADDRESS) != 42 and len(config.TOKEN_ADDRESS) != 42:
-            print("Add a wallet address and a token address to the config file or use the command line arguments.")
-            exit(1)
+        check_config()
         network = config.NETWORK
         wallet_address = config.WALLET_ADDRESS
         token_address = config.TOKEN_ADDRESS
@@ -45,6 +43,12 @@ def main(args):
         alert(f"Token {token_address} received", pushsafer_key)
     if use_mac_voice:
         os.system('say "Token received"')
+
+
+def check_config():
+    if len(config.WALLET_ADDRESS) != 42 and len(config.TOKEN_ADDRESS) != 42:
+        print("Add a wallet address and a token address to the config file or use the command line arguments.")
+        exit(1)
 
 
 if __name__ == "__main__":

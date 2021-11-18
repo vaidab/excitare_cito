@@ -13,7 +13,8 @@ def connect(network):
     web3 = Web3(Web3.HTTPProvider(network_rpc))
 
     if not web3.isConnected():
-        raise Exception(f"[?] Not connected to {chains.get_name(network_data)}")
+        print(Exception(f"[?] Not connected to {chains.get_name(network_data)}"))
+        exit(1)
     else:
         print(f"[+] Connected to {chains.get_name(network_data)}")
 
