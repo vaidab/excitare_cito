@@ -7,10 +7,11 @@ from package import units
 from package.utils import timeit
 
 
-def connect(network):
+def connect(network, timeout=60):
     network_data = chains.get_network_data(network)
     network_rpc = chains.get_rpc(network_data)
-    web3 = Web3(Web3.HTTPProvider(network_rpc))
+
+    web3 = Web3(Web3.HTTPProvider(network_rpc, request_kwargs={'timeout': timeout}))
 
     if not web3.isConnected():
         print(Exception(f"[?] Not connected to {chains.get_name(network_data)}"))
@@ -46,3 +47,9 @@ def wait_for_token(web3, wallet_address, token_address, token_abi, sleep_time_se
     print(f"[+] {round(final_balance, max_decimals)} {token_symbol} arrived in the account.")
     print(f"[!] New {token_symbol} balance: {round(web3.fromWei(new_balance_full, token_units), max_decimals)} ")
     return
+
+def get_symbol(web3, token_address, token_abi):
+    token_address = web3.toChecksumAddress(token_address)
+    token_contract = web3.eth.contract(token_address, abi=token_abi)
+    token_symbol = token_contract.functions.symbol().call()
+    return token_symbol

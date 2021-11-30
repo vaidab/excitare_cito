@@ -10,7 +10,7 @@ from getpass import getpass
 
 import config as config
 from package import cmd_args as cmd_args
-from package.web3_functions import connect, wait_for_token
+from package.web3_functions import connect, wait_for_token, get_symbol
 from package.pushsafer import alert
 
 
@@ -33,14 +33,16 @@ def main(args):
     if use_pushsafer:
         if config.PUSHSAFER_KEY:
             pushsafer_key = config.PUSHSAFER_KEY
+        elif os.getenv('PUSHSAFER_KEY'):
+            pushsafer_key = os.getenv('PUSHSAFER_KEY')
         else:
             pushsafer_key = getpass(prompt="[+] Input Pushsafer key: ")
 
-    web3 = connect(network)
+    web3 = connect(network, sleep_time_seconds+10)
     wait_for_token(web3, wallet_address, token_address, token_abi, sleep_time_seconds, max_decimals)
 
     if use_pushsafer:
-        alert(f"Token {token_address} received", pushsafer_key)
+        alert(f"Token {get_symbol(web3, token_address, token_abi)} received", pushsafer_key)
     if use_mac_voice:
         os.system('say "Token received"')
 
